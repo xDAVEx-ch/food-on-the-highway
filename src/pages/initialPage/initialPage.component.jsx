@@ -1,13 +1,13 @@
 import React from 'react';
 
-import initialPageBanner from '../assets/initial-page-banner.jpg';
+import initialPageBanner from '../../assets/initial-page-banner.jpg';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import Header from '../components/header/header.component';
-import CountDown from '../components/countdown/countDown.component';
+import Header from '../../components/header/header.component';
+import CountDown from '../../components/countdown/countDown.component';
 
 /*
 TODO: There's a little scroll in reduce sizes due to height changes

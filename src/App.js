@@ -1,4 +1,4 @@
-import InitialPage from './pages/initialPage.component';
+import InitialPage from './pages/initialPage/initialPage.component';
 
 function App() {
   return (
