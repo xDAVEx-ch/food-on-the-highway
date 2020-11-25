@@ -1,5 +1,5 @@
 /* Debounce: Practice of diminishing the number of calls to an event for performance*/
-export const debounce = (fn, ms) => {
+export function debounce(fn, ms){
     let timer
     return _ => {
         clearTimeout(timer)
