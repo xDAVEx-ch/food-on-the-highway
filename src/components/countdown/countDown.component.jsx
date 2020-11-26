@@ -1,30 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import Badge from 'react-bootstrap/Badge';
 
-import { debounce } from './countDown.utils';
+import { useMediaQuery } from '../../effects/useMediaQuery.effect';
 
 const CountDown = () => {
-    const [dimensions, setDimensions] = useState({
-        width: window.innerWidth
-    });
-    useEffect(() => {
-        const debouncedHandleResize = debounce(function handleResize() {
-            setDimensions({
-                width: window.innerWidth
-            })
-        }, 1000)
 
-        window.addEventListener('resize', debouncedHandleResize);
-
-        return _ => {
-            window.removeEventListener('resize', debouncedHandleResize);
-
-        }
-    });
+    const dimensions = useMediaQuery();
+    
     return (
         <Row>
             <Col>
