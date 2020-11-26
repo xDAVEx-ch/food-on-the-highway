@@ -12,8 +12,8 @@ const Header = () => (
             <Navbar.Brand href="#home">
                 <img
                     src={logo}
-                    width="90"
-                    height="70"
+                    width="80"
+                    height="60"
                     className="d-inline-block align-top"
                     alt="Food on the Highway logo"
                 />
