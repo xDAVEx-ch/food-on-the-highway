@@ -23,7 +23,7 @@ export const useMediaQuery = () => {
 }
 
 /* Debounce: Practice of diminishing the number of calls to an event for performance*/
-export function debounce(fn, ms){
+function debounce(fn, ms){
     let timer
     return _ => {
         clearTimeout(timer)
