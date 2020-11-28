@@ -6,24 +6,17 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import Header from '../../components/header/header.component';
 import CountDown from '../../components/countdown/countDown.component';
 
-/*
-TODO: There's a little scroll in reduce sizes due to height changes
-    - Create an external scss file and add media queries to eliminate
-*/
 const backgroundStyles = {
     background: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
                 url(${initialPageBanner}) center / cover`,
-    height: '85vh',
-    overflow: 'hidden'
+    height: 'calc(100vh - 86px)', //Header height == 86px
 };
 
 const InitialPage = () => {
     return (
         <>
-            <Header />
             <Container
                 className='d-flex flex-column justify-content-center'
                 fluid
