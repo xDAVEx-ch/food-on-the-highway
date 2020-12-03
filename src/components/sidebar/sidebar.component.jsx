@@ -1,40 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import Nav from 'react-bootstrap/Nav';
+import ListGroup from 'react-bootstrap/ListGroup';
 
-class Sidebar extends Component {
+import './sidebar.styles.scss';
 
-    constructor() {
-        super();
-
-        this.state = {
-            toggle: false
-        }
-    }
-
-    render() {
-        return (
-            <div className={this.state.toggle ? 'collapse' : ''}>
-                <Nav
-                    style={{ height: 'calc(100vh - 86px)' }}
-                    className='flex-column align-items-center bg-secondary'
-                >
-                    <Nav.Item className='mt-3'>
-                        <Nav.Link className='text-dark h5'>My ticket</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link className='text-dark h5'>Buy ticket</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link className='text-dark h5'>Participants</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item className='mt-auto'>
-                        <Nav.Link className='text-dark h5'>Exit</Nav.Link>
-                    </Nav.Item>
-                </Nav>
-            </div>
-        )
-    }
-}
+const Sidebar = () => (
+    <>
+        <div class='bg-light border-right' id='sidebar-wrapper'>
+            <p className='sidebar-heading lead'>Food On the Highway Event</p>
+            <ListGroup variant='flush'>
+                <ListGroup.Item action>My ticket</ListGroup.Item>
+                <ListGroup.Item action>Buy ticket</ListGroup.Item>
+                <ListGroup.Item action>Participants</ListGroup.Item>
+                <ListGroup.Item action>Exit</ListGroup.Item>
+            </ListGroup>
+        </div>
+    </>
+);
 
 export default Sidebar;
