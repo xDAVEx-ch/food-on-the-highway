@@ -13,7 +13,7 @@ const Header = ({ location }) => {
     const pathName = location.pathname;
 
     return (
-        <header>
+        <header className='border-bottom'>
             <Navbar expand='md' variant='light'>
 
                 <Navbar.Brand
