@@ -1,10 +1,7 @@
-#wrapper {
-    overflow-x: hidden;
-}
-
 #sidebar-wrapper {
+    width: 40%;
     min-height: calc(100vh - 87px);
-    margin-left: -15rem;
+    margin-left: -40%;
     -webkit-transition: margin .25s ease-out;
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
@@ -22,7 +19,6 @@
 }
 
 #sidebar-wrapper .list-group {
-    width: 15rem;
 
     @media screen and (min-width: 768px){
         width: 100%;
@@ -42,6 +38,6 @@
     margin-left: 0;
 
     @media (min-width: 768px) {
-        margin-left: -15rem;
+        margin-left: -40%;
     }
 }

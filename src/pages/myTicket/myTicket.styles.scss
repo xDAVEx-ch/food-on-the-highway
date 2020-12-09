@@ -1,5 +1,10 @@
+#wrapper {
+    overflow-x: hidden;
+}
+
 #page-content-wrapper {
     min-width: 100vw;
+    padding: 15px 30px;
 
     @media (min-width: 768px){
         min-width: 0;
