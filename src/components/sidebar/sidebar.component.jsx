@@ -6,7 +6,7 @@ import './sidebar.styles.scss';
 
 const Sidebar = () => (
     <>
-        <div class='bg-secondary border-right' id='sidebar-wrapper'>
+        <div className='bg-secondary border-right' id='sidebar-wrapper'>
             <p className='sidebar-heading lead'>Food On the Highway Event</p>
             <ListGroup variant='flush'>
                 <ListGroup.Item className='bg-secondary' action>My ticket</ListGroup.Item>

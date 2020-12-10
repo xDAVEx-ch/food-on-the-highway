@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 
 const ParticipantsDetails = () => (
     <Table bordered responsive style={{ width: '700px' }}>
@@ -19,28 +20,28 @@ const ParticipantsDetails = () => (
                 <td>Mexican food</td>
                 <td>Bryan Gómez</td>
                 <td>thisIsOneFake-email@gmail.com</td>
-                <td><a href='#'>dummyWebsite.net</a></td>
+                <td><Button variant='link'>dummyWebsite.net</Button></td>
             </tr>
             <tr>
                 <td>Burger Factory</td>
                 <td>Fast food</td>
                 <td>Mark Poppking</td>
                 <td>thisIsOneFake-email@gmail.com</td>
-                <td><a href='#'>dummyWebsite.net</a></td>
+                <td><Button variant='link'>dummyWebsite.net</Button></td>
             </tr>
             <tr>
                 <td>Nacho on Wheels</td>
                 <td>Mexican food</td>
                 <td>Pedro Rodriguez</td>
                 <td>thisIsOneFake-email@gmail.com</td>
-                <td><a href='#'>dummyWebsite.net</a></td>
+                <td><Button variant='link'>dummyWebsite.net</Button></td>
             </tr>
             <tr>
                 <td>Green plate</td>
                 <td>Vegetarian food</td>
                 <td>Steve Mainkra</td>
                 <td>thisIsOneFake-email@gmail.com</td>
-                <td><a href='#'>dummyWebsite.net</a></td>
+                <td><Button variant='link'>dummyWebsite.net</Button></td>
             </tr>
         </tbody>
     </Table>
