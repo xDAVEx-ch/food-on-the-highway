@@ -41,3 +41,15 @@
         margin-left: -40%;
     }
 }
+
+.list-group a, #exit-button{
+    color: #000;
+}
+
+.list-group a:hover{
+    text-decoration: none;
+}
+
+#exit-button:hover{
+    color: #E44527;//$primary color;
+}

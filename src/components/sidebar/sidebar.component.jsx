@@ -22,7 +22,7 @@ const Sidebar = ({ match }) => (
                         )
                     })
                 }
-                <ListGroup.Item className='bg-secondary' action>Exit</ListGroup.Item>
+                <ListGroup.Item id='exit-button' className='bg-secondary' action>Exit</ListGroup.Item>
             </ListGroup>
         </div>
     </>
