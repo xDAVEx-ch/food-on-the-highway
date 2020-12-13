@@ -1,0 +1,20 @@
+$primary: #E44527;
+$light: #FFFFFF;
+$dark: #1A1A1A;
+$secondary: #F5F4F0;
+$info: #fea63a;
+$danger: #fea63a;
+
+.map{
+    width: 475px;
+}
+
+.position{
+    width: 70px;
+    height: 70px;
+}
+
+.position:hover{
+    background-color: $secondary !important;
+    cursor: pointer;
+}

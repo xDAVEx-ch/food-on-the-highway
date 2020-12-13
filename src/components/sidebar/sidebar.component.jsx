@@ -14,7 +14,7 @@ const Sidebar = ({ match }) => (
             <p className='sidebar-heading lead'>Food On the Highway Event</p>
             <ListGroup variant='flush'>
                 {
-                    SIDEBAR_DATA.consumer.map((opt) =>{
+                    SIDEBAR_DATA.participants.map((opt) =>{
                         return (
                             <ListGroup.Item key={opt.id} className='bg-secondary' action>
                                 <Link to={`${match.url}${opt.path}`}>{opt.text}</Link>
