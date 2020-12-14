@@ -1,0 +1,23 @@
+$primary: #E44527;
+$light: #FFFFFF;
+$dark: #1A1A1A;
+$secondary: #F5F4F0;
+$info: #fea63a;
+$danger: #fea63a;
+
+.color-sample{
+    width: 40px;
+    height: 40px;
+}
+
+.color-available{
+    background-color: $light;
+}
+
+.color-occupied{
+    background-color: $secondary;
+}
+
+.color-user-space{
+    background-color: $info;
+}
