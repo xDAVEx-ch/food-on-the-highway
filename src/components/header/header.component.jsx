@@ -17,8 +17,8 @@ const Header = ({ location }) => {
             <Navbar expand='md' variant='light'>
 
                 <Navbar.Brand
-                    href={pathName === '/main' ? '#' : 'home'}
-                    className={pathName === '/main' ? 'd-none d-md-block' : ''}
+                    href={pathName.includes('/main') ? '#' : 'home'}
+                    className={pathName.includes('/main') ? 'd-none d-md-block' : ''}
                 >
                     <img
                         src={logo}
