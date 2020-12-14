@@ -7,11 +7,20 @@ $danger: #fea63a;
 
 .map{
     width: 475px;
+
+    @media screen and (max-width: 576px){
+        width: 300px;
+    }
 }
 
 .position{
     width: 70px;
     height: 70px;
+
+    @media screen and (max-width: 576px){
+        width: 50px;
+        height: 50px;
+    }
 }
 
 .position:hover{

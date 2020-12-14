@@ -3,7 +3,7 @@ import React from 'react';
 import './positionsMap.styles.scss';
 
 const PositionsMap = () => (
-    <>
+    <div>
 
         <div className='map'>
             <div className='d-flex'>
@@ -36,7 +36,7 @@ const PositionsMap = () => (
             </div>
         </div>
 
-    </>
+    </div>
 );
 
 export default PositionsMap;
