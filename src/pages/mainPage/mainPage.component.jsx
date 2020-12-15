@@ -8,6 +8,7 @@ import BuyTicket from '../buyTicket/buyTicket.component';
 import Participants from '../participants/participants.component';
 import MyPositions from '../myPositions/myPositions.component';
 import SelectPositions from '../selectPositions/selectPositions.component';
+import SeePositions from '../seePositions/seePositions.component';
 
 const participant = true;
 
@@ -21,7 +22,7 @@ const MainPage = ({ match }) => {
                     <>
                         <Route path={`${match.path}/my-positions`} component={MyPositions} />
                         <Route path={`${match.path}/select-positions`} component={SelectPositions} />
-                        <Route path={`${match.path}/participants`} component={Participants} />
+                        <Route path={`${match.path}/list-positions`} component={SeePositions} />
                     </>
                 ):(
                     <>
