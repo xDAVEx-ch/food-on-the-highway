@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { auth } from '../../firebase/firebase.utils';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -21,24 +23,38 @@ export default class LogInPage extends Component {
         }
     }
 
-    handleSubmit = (e) =>{
+    handleSubmit = async (e) => {
+        e.preventDefault();
+
+        this.handleValidation(e);
+
+        if (this.state.validated) {
+            return;
+        } else {
+            const { email, password } = this.state;
+            await auth.signInWithEmailAndPassword(email, password);
+
+            this.setState({ email: '', password: ''});
+        }
+    }
+
+    handleValidation = (e) => {
         const form = e.currentTarget;
 
-        if(form.checkValidity() === false){
-            e.preventDefault();
+        if (form.checkValidity() === false) {
             e.stopPropagation();
         } else {
-            this.setState({validated: false});
+            this.setState({ validated: false });
             return;
         }
 
-        this.setState({validated: true});
+        this.setState({ validated: true });
     }
 
-    handleChange = (e) =>{
+    handleChange = (e) => {
         const { name, value } = e.target;
 
-        this.setState({[name]: value});
+        this.setState({ [name]: value });
     }
 
     render() {
