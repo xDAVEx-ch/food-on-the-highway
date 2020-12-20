@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/main-logo.png';
 
 import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 
 const Header = ({ location, user }) => {
@@ -39,7 +38,7 @@ const Header = ({ location, user }) => {
                             ? `Welcome ${user.userName}!!`
                             : (
                                 <>
-                                    <Nav.Link><Link to='login'>Log in</Link></Nav.Link>
+                                    <Link className='nav-link' to='login'>Log in</Link>
                                     <Link to='/signup'><Button variant="info">Sign up</Button></Link>
                                 </>
                             )
