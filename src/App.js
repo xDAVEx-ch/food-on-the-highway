@@ -47,7 +47,7 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <Header />
+        <Header user={this.state.currentUser}/>
         <Route exact path='/' component={InitialPage}></Route>
         <Route path='/signup' component={SignUpPage}></Route>
         <Route path='/login' component={LogInPage}></Route>

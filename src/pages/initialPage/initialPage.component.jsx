@@ -11,7 +11,7 @@ import CountDown from '../../components/countdown/countDown.component';
 const backgroundStyles = {
     background: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
                 url(${initialPageBanner}) center / cover`,
-    height: 'calc(100vh - 86px)', //Header height == 86px
+    height: 'calc(100vh - 87px)', //Header height == 87px
 };
 
 const InitialPage = () => {
