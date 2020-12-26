@@ -13,15 +13,9 @@ import LogInPage from './pages/logIn/logInPage.component';
 import MainPage from './pages/mainPage/mainPage.component';
 
 import Header from './components/header/header.component';
+import ProtectedRoute from './components/protectedRoute/protectedRoute.component';
 
 class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      currentUser: null
-    }
-  }
 
   unsubscribe = null;
 
@@ -42,7 +36,7 @@ class App extends React.Component {
           });
         })
       } else {
-        setCurrentUser(currentUser);
+        setCurrentUser(userAuth);
       }
     });
   }
@@ -58,14 +52,18 @@ class App extends React.Component {
         <Route exact path='/' component={InitialPage}></Route>
         <Route path='/signup' component={SignUpPage}></Route>
         <Route path='/login' component={LogInPage}></Route>
-        <Route path='/main' component={MainPage}></Route>
+        <ProtectedRoute path='/main' currentUser={this.props.currentUser} component={MainPage}></ProtectedRoute>
       </>
     );
   }
 }
 
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+});
+
 const mapDispatchToProps = (dispatch) =>({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
