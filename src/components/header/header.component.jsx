@@ -2,13 +2,14 @@ import React from 'react';
 
 import { withRouter } from "react-router";
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import logo from '../../assets/main-logo.png';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 
-const Header = ({ location, user }) => {
+const Header = ({ location, currentUser }) => {
 
     const pathName = location.pathname;
 
@@ -30,15 +31,19 @@ const Header = ({ location, user }) => {
                     </Navbar.Brand>
                 </Link>
 
-                <Navbar.Toggle aria-controls='toggle-sidebar' />
+                {
+                    pathName.includes('/main') 
+                        ? <Navbar.Toggle aria-controls='toggle-sidebar' />
+                        : ''
+                }
 
                 <div className='ml-auto d-flex flex-row'>
                     {
-                        user
-                            ? `Welcome ${user.userName}!!`
+                        currentUser
+                            ? `Welcome ${currentUser.currentUser.userName}!!`
                             : (
                                 <>
-                                    <Link className='nav-link' to='login'>Log in</Link>
+                                    <Link className='nav-link' to='/login'>Log in</Link>
                                     <Link to='/signup'><Button variant="info">Sign up</Button></Link>
                                 </>
                             )
@@ -50,4 +55,8 @@ const Header = ({ location, user }) => {
     )
 }
 
-export default withRouter(Header);
+const mapStateToProps = (state) => ({
+    currentUser: state.user.currentUser
+});
+
+export default connect(mapStateToProps)(withRouter(Header));

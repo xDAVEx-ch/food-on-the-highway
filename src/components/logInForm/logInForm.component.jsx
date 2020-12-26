@@ -6,10 +6,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import FormInput from '../../components/formInput/formInput.component';
+import RedirectButton from '../../components/enterButton/enterButton.component';
 
 export default class LogInForm extends Component {
 
@@ -26,29 +26,30 @@ export default class LogInForm extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
 
-        this.handleValidation(e);
+        let band = this.handleValidation(e);
 
-        if (this.state.validated) {
-            return;
-        } else {
+        if (band) {
             const { email, password } = this.state;
             await auth.signInWithEmailAndPassword(email, password);
-
+            
+            this.setState({ validated: false });
             this.setState({ email: '', password: ''});
+        } else {
+            this.setState({ validated: true });
+            return;
         }
     }
 
     handleValidation = (e) => {
         const form = e.currentTarget;
 
-        if (form.checkValidity() === false) {
-            e.stopPropagation();
-        } else {
-            this.setState({ validated: false });
-            return;
-        }
+        if (form.checkValidity()) {
 
-        this.setState({ validated: true });
+            return true;
+        } else {
+            e.stopPropagation();
+            return false;
+        }
     }
 
     handleChange = (e) => {
@@ -94,9 +95,7 @@ export default class LogInForm extends Component {
                                     onChange={this.handleChange}
                                 />
 
-                                <Button variant="primary" type="submit">
-                                    Log In
-                                </Button>
+                                <RedirectButton text={'Log In'} validation={this.state.validated}/>
                             </Form>
                         </Col>
                     </Row>

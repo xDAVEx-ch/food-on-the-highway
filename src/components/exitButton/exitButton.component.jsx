@@ -9,7 +9,6 @@ import ListGroup from 'react-bootstrap/ListGroup';
 const ExitButton = () => {
 
     const [loggedOut, setLoggedOut] = useState(false);
-    console.log('state');
 
     const logOut = () => {
         auth.signOut();
