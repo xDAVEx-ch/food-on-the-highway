@@ -6,10 +6,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import FormInput from '../formInput/formInput.component';
+import EnterButton from '../enterButton/enterButton.component';
 
 class SignUpPage extends React.Component {
 
@@ -22,6 +22,11 @@ class SignUpPage extends React.Component {
             password: '',
             confirmPassword: '',
             type: 'consumer',
+            errorCodeUserName: '',
+            errorCodeEmail: '',
+            errorCodePassword: '',
+            errorCodeConfirmPass: '',
+            firebaseErrorMsg: '',
             validated: false
         };
     }
@@ -48,30 +53,70 @@ class SignUpPage extends React.Component {
                 password: '',
                 confirmPassword: '',
                 type: 'consumer',
+                errorCodeUserName: '',
+                errorCodeEmail: '',
+                errorCodePassword: '',
+                errorCodeConfirmPass: '',
+                firebaseErrorMsg: '',
                 validated: false
             });
+
         } catch (error) {
-            console.log(error.message, error.code);
+
+            if( error.code === 'auth/weak-password' ){
+                this.setState({
+                    errorCodePassword: error.code,
+                    firebaseErrorMsg: error.message
+                });
+            } else {
+                this.setState({
+                    errorCodeEmail: error.code,
+                    firebaseErrorMsg: error.message
+                });
+            }
         }
     }
 
     handleValidation = async (e) => {
-        const form = e.currentTarget;
+
+        if(this.state.userName === ''){
+            e.stopPropagation();
+            this.setState({ errorCodeUserName: 'blank-space', validated: true });
+        } else {
+            this.setState({ errorCodeUserName: '', validated: false });
+        }
+
+        if(this.state.email === ''){
+            e.stopPropagation();
+            this.setState({ errorCodeEmail: 'blank-space', validated: true });
+        } else {
+            this.setState({ errorCodeEmail: '', validated: false });
+        }
 
         if (this.state.password !== this.state.confirmPassword) {
-            alert("Passwords don't match");
             e.stopPropagation();
-            this.setState({ confirmPassword: '' });
+            this.setState({ confirmPassword: '', errorCodeConfirmPass: 'password-mismatch', validated: true });
+        } else {
+            this.setState({ errorCodeConfirmPass: '', validated: false });
+        }
 
-        } else if (form.checkValidity() === false) {
+        if(this.state.password === '' ){
             e.stopPropagation();
+            this.setState({ errorCodePassword: 'blank-space', validated: true });
+        } else {
+            this.setState({ errorCodePassword: '', validated: false });
+        }
+
+        /*} else if (form.checkValidity() === false) {
+            e.stopPropagation();
+            this.setState({ errorCode: 'blank-space' });
 
         } else {
             this.setState({ validated: false });
             return;
         }
 
-        this.setState({ validated: true });
+        this.setState({ validated: true });*/
     }
 
     handleChange = (event) => {
@@ -96,14 +141,13 @@ class SignUpPage extends React.Component {
         return (
             <div
                 className='bg-secondary d-flex align-items-center'
-                style={{ height: 'calc(100vh - 87px)' }}  //Header height == 87px
             >
                 <Container>
-                    <h1 className='text-center mb-3 pt-3 text-primary h5'>SIGN UP FOR FREE</h1>
+                    <h1 className='text-center mb-3 mt-2 text-primary h5'>SIGN UP FOR FREE</h1>
                     <Row className='justify-content-center'>
                         <Col md={6}>
                             <Form
-                                className='border rounded p-3 bg-light'
+                                className='border rounded p-3 mb-3 bg-light'
                                 noValidate
                                 validated={this.state.validated}
                                 onSubmit={this.handleSubmit}
@@ -116,6 +160,7 @@ class SignUpPage extends React.Component {
                                     placeholder='Enter your name'
                                     value={this.state.userName}
                                     onChange={this.handleChange}
+                                    errorCodeMsg={this.state.errorCodeUserName}
                                 />
 
                                 <FormInput
@@ -126,16 +171,21 @@ class SignUpPage extends React.Component {
                                     placeholder='Enter your email'
                                     value={this.state.email}
                                     onChange={this.handleChange}
+                                    errorCodeMsg={this.state.errorCodeEmail}
+                                    firebaseErrorMsg={this.state.firebaseErrorMsg}
                                 />
 
                                 <FormInput
                                     label='Password'
+                                    extraInfo={'Password must be at least 6 characters'}
                                     required
                                     type='password'
                                     name='password'
                                     placeholder='Password'
                                     value={this.state.password}
                                     onChange={this.handleChange}
+                                    errorCodeMsg={this.state.errorCodePassword}
+                                    firebaseErrorMsg={this.state.firebaseErrorMsg}
                                 />
 
                                 <FormInput
@@ -146,7 +196,7 @@ class SignUpPage extends React.Component {
                                     placeholder='Password'
                                     value={this.state.confirmPassword}
                                     onChange={this.handleChange}
-                                    passCoincide={this.state.confirmPassword !== this.state.password}
+                                    errorCodeMsg={this.state.errorCodeConfirmPass}
                                 />
                                 <FormInput
                                     label='User type'
@@ -155,6 +205,7 @@ class SignUpPage extends React.Component {
                                     name='type'
                                     value={this.capitalizeFirstLetter()}
                                     readOnly
+                                    errorCodeMsg={''}
                                 />
                                 <Form.Check
                                     type='switch'
@@ -163,9 +214,7 @@ class SignUpPage extends React.Component {
                                     onChange={this.handleChange}
                                 />
 
-                                <Button className='mt-2' variant='primary' type='submit'>
-                                    Submit
-                                </Button>
+                                <EnterButton text={'Sign up'}/>
                             </Form>
                         </Col>
                     </Row>

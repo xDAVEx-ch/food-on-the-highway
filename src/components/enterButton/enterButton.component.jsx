@@ -19,25 +19,8 @@ const RedirectButton = ({ text, currentUser }) => {
         return <Redirect to='/main' />
     }
     
-    /*const [redirection, setRedirection] = useState(false);
-
-    useEffect(() => {
-        if (validation) {
-            console.log(validation);
-            setRedirection(false);
-        } else {
-            setRedirection(true);
-        }
-    }, [validation]);
-
-    const redirect = () =>{
-        if(redirection){
-            return <Redirect to='/main' />
-        }
-    }*/
-    
     return (
-        <Button variant='primary' type='submit'>
+        <Button className='mt-2' variant='primary' type='submit'>
             {text}
         </Button>
     );
