@@ -33,9 +33,9 @@ class SignUpPage extends React.Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        await this.handleValidation(e);
+        let errors = await this.handleValidation(e);
 
-        if (this.state.validated) {
+        if (errors.userName || errors.email || errors.password || errors.confirmPassword) {
             return;
         }
 
@@ -79,7 +79,48 @@ class SignUpPage extends React.Component {
 
     handleValidation = async (e) => {
 
-        if(this.state.userName === ''){
+        let errors = {};
+
+        if(!this.state.userName){
+            this.setState({ errorCodeUserName: 'blank-space' });
+            errors.userName = true;
+        } else {
+            this.setState({ errorCodeUserName: '' });
+            errors.userName = false;
+        }
+
+        if(!this.state.email){
+            this.setState({ errorCodeEmail: 'blank-space' });
+            errors.email = true;
+        } else {
+            this.setState({ errorCodeEmail: '' });
+            errors.email = false;
+        }
+
+        if(!this.state.password){
+            this.setState({ errorCodePassword: 'blank-space' });
+            errors.password = true;
+        } else {
+            this.setState({ errorCodePassword: '' });
+            errors.password = false;
+        }
+
+        if(!this.state.confirmPassword){
+            this.setState({ errorCodeConfirmPass: 'blank-space' });
+            errors.confirmPassword = true;
+
+        } else if(this.state.confirmPassword !== this.state.password){
+
+            this.setState({ errorCodeConfirmPass: 'password-mismatch'});
+            errors.confirmPassword = true;
+        } else {
+            this.setState({ errorCodeConfirmPass: '' });
+            errors.confirmPassword = false;
+        }
+
+        return errors;
+
+        /*if(this.state.userName === ''){
             e.stopPropagation();
             this.setState({ errorCodeUserName: 'blank-space', validated: true });
         } else {
@@ -105,18 +146,7 @@ class SignUpPage extends React.Component {
             this.setState({ errorCodePassword: 'blank-space', validated: true });
         } else {
             this.setState({ errorCodePassword: '', validated: false });
-        }
-
-        /*} else if (form.checkValidity() === false) {
-            e.stopPropagation();
-            this.setState({ errorCode: 'blank-space' });
-
-        } else {
-            this.setState({ validated: false });
-            return;
-        }
-
-        this.setState({ validated: true });*/
+        }*/
     }
 
     handleChange = (event) => {
@@ -165,6 +195,7 @@ class SignUpPage extends React.Component {
 
                                 <FormInput
                                     label='Email Address'
+                                    extraInfo={'Email must be unique to identify the user'}
                                     required
                                     type='email'
                                     name='email'
