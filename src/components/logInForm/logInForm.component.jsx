@@ -19,6 +19,9 @@ export default class LogInForm extends Component {
         this.state = {
             email: '',
             password: '',
+            errorCodeEmail: '',
+            errorCodePassword: '',
+            firebaseErrorMsg: '',
             validated: false
         }
     }
@@ -26,30 +29,54 @@ export default class LogInForm extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
 
-        let band = this.handleValidation(e);
+        let errors = this.handleValidation(e);
 
-        if (band) {
-            const { email, password } = this.state;
-            await auth.signInWithEmailAndPassword(email, password);
-            
-            this.setState({ validated: false });
-            this.setState({ email: '', password: ''});
-        } else {
-            this.setState({ validated: true });
+        if (errors.email || errors.password) {
             return;
         }
+
+        try {
+            const { email, password } = this.state;
+            await auth.signInWithEmailAndPassword(email, password);
+
+            this.setState({ validated: false });
+            this.setState({ email: '', password: '' });
+        } catch (error) {
+            if (error.code === 'auth/wrong-password') {
+                this.setState({
+                    errorCodePassword: error.code,
+                    firebaseErrorMsg: error.message
+                });
+            } else {
+                this.setState({
+                    errorCodeEmail: error.code,
+                    firebaseErrorMsg: error.message
+                });
+            }
+        }
+
     }
 
-    handleValidation = (e) => {
-        const form = e.currentTarget;
+    handleValidation = () =>{
+        let errors = {};
 
-        if (form.checkValidity()) {
-
-            return true;
+        if(!this.state.email){
+            this.setState({ errorCodeEmail: 'blank-space' });
+            errors.email = true
         } else {
-            e.stopPropagation();
-            return false;
+            this.setState({ errorCodeEmail: '' });
+            errors.email = false;
         }
+
+        if(!this.state.password){
+            this.setState({ errorCodePassword: 'blank-space' });
+            errors.password = true
+        } else {
+            this.setState({ errorCodePassword: '' });
+            errors.password = false;
+        }
+
+        return errors;
     }
 
     handleChange = (e) => {
@@ -83,6 +110,8 @@ export default class LogInForm extends Component {
                                     placeholder='Enter your email'
                                     value={this.state.email}
                                     onChange={this.handleChange}
+                                    errorCodeMsg={this.state.errorCodeEmail}
+                                    firebaseErrorMsg={this.state.firebaseErrorMsg}
                                 />
 
                                 <FormInput
@@ -93,9 +122,11 @@ export default class LogInForm extends Component {
                                     placeholder='Password'
                                     value={this.state.password}
                                     onChange={this.handleChange}
+                                    errorCodeMsg={this.state.errorCodePassword}
+                                    firebaseErrorMsg={this.state.firebaseErrorMsg}
                                 />
 
-                                <RedirectButton text={'Log In'} validation={this.state.validated}/>
+                                <RedirectButton text={'Log In'} validation={this.state.validated} />
                             </Form>
                         </Col>
                     </Row>
