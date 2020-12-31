@@ -4,12 +4,14 @@ import { withRouter } from "react-router";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { toggleSidebarHidden } from '../../redux/sidebar/sidebar.actions';
+
 import logo from '../../assets/main-logo.png';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 
-const Header = ({ location, currentUser }) => {
+const Header = ({ location, user, toggleSidebar }) => {
 
     const pathName = location.pathname;
 
@@ -33,14 +35,14 @@ const Header = ({ location, currentUser }) => {
 
                 {
                     pathName.includes('/main') 
-                        ? <Navbar.Toggle aria-controls='toggle-sidebar' />
+                        ? <Navbar.Toggle aria-controls='toggle-sidebar' onClick={toggleSidebar} />
                         : ''
                 }
 
                 <div className='ml-auto d-flex flex-row'>
                     {
-                        currentUser
-                            ? `Welcome ${currentUser.currentUser.userName}!!`
+                        user
+                            ? `Welcome ${user.currentUser.userName}!!`
                             : (
                                 <>
                                     <Link className='nav-link' to='/login'>Log in</Link>
@@ -55,8 +57,12 @@ const Header = ({ location, currentUser }) => {
     )
 }
 
-const mapStateToProps = (state) => ({
-    currentUser: state.user.currentUser
+const mapStateToProps = ({ user: {currentUser} }) => ({
+    user: currentUser
 });
 
-export default connect(mapStateToProps)(withRouter(Header));
+const mapDispatchToProps = (dispatch) =>({
+    toggleSidebar: () => dispatch(toggleSidebarHidden())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

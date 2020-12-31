@@ -1,6 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { resetToggleHidden } from '../../redux/sidebar/sidebar.actions';
+
+import { useMediaQuery } from '../../effects/useMediaQuery.effect';
 
 import Sidebar from '../../components/sidebar/sidebar.component';
 import MyTicket from '../myTicket/myTicket.component';
@@ -10,14 +15,23 @@ import MyPositions from '../myPositions/myPositions.component';
 import SelectPositions from '../selectPositions/selectPositions.component';
 import SeePositions from '../seePositions/seePositions.component';
 
-const participant = true;
+const MainPage = ({ match, user, hidden, resetToggleHidden }) => {
 
-const MainPage = ({ match }) => {
+    const dimensions = useMediaQuery();
+
+    useEffect(() =>{
+        console.log('useEffect');
+        if(dimensions.width > 768){
+            resetToggleHidden(true);
+            console.log('after reset');
+        }
+    }, [dimensions, resetToggleHidden]);
+
     return(
-        <div className='d-flex' id='wrapper'>
+        <div className={`d-flex ${hidden ? '' : 'toggled'}`} id='wrapper'>
             <Sidebar />
             {
-                participant == true
+                user.currentUser.type === 'participant'
                 ?(
                     <>
                         <Route path={`${match.path}/my-positions`} component={MyPositions} />
@@ -36,4 +50,12 @@ const MainPage = ({ match }) => {
     );
 }
 
-export default MainPage;
+const mapStateToProps = ({ user: {currentUser}, sidebar: {hidden} }) =>({
+    user: currentUser, hidden
+});
+
+const mapDispatchToProps = (dispatch) =>({
+    resetToggleHidden: (hidden) => dispatch(resetToggleHidden(hidden))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

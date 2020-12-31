@@ -16,7 +16,7 @@ const SIDEBAR_DATA = {
             text: 'Participants',
         }
     ],
-    participants: [
+    participant: [
         {
             id: 1,
             path: '/my-positions',

@@ -1,7 +1,7 @@
 #sidebar-wrapper {
-    width: 40%;
+    width: 60%;
     min-height: calc(100vh - 87px);
-    margin-left: -40%;
+    margin-left: -60%;
     -webkit-transition: margin .25s ease-out;
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
@@ -9,6 +9,7 @@
 
     @media (min-width: 768px){
         margin-left: 0;
+        width: 40%;
     }
 }
 
@@ -38,7 +39,7 @@
     margin-left: 0;
 
     @media (min-width: 768px) {
-        margin-left: -40%;
+        margin-left: -60%;
     }
 }
 
