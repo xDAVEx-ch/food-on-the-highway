@@ -34,13 +34,13 @@ const MainPage = ({ match, user, hidden, resetToggleHidden }) => {
                 user.currentUser.type === 'participant'
                 ?(
                     <>
-                        <Route path={`${match.path}/my-positions`} component={MyPositions} />
+                        <Route exact path={`${match.path}`} component={MyPositions} />
                         <Route path={`${match.path}/select-positions`} component={SelectPositions} />
                         <Route path={`${match.path}/list-positions`} component={SeePositions} />
                     </>
                 ):(
                     <>
-                        <Route path={`${match.path}/my-ticket`} component={MyTicket} />
+                        <Route exact path={`${match.path}`} component={MyTicket} />
                         <Route path={`${match.path}/buy-ticket`} component={BuyTicket} />
                         <Route path={`${match.path}/participants`} component={Participants} />
                     </>

@@ -2,7 +2,7 @@ const SIDEBAR_DATA = {
     consumer: [
         {
             id: 1,
-            path: '/my-ticket',
+            path: '',
             text: 'My ticket',
         },
         {
@@ -19,7 +19,7 @@ const SIDEBAR_DATA = {
     participant: [
         {
             id: 1,
-            path: '/my-positions',
+            path: '',
             text: 'My positions',
         },
         {
