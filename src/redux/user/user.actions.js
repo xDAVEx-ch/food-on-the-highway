@@ -1,8 +1,11 @@
 import userActionTypes from './user.types';
 
-const setCurrentUser = (user) =>({
+export const setCurrentUser = (user) =>({
     type: userActionTypes.SET_CURRENT_USER,
     payload: user
 });
 
-export default setCurrentUser;
+export const updateTicketList = (newTicket) =>({
+    type: userActionTypes.UPDATE_TICKET_LIST,
+    payload: newTicket
+});

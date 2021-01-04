@@ -12,6 +12,12 @@ const userReducer = (state = INITIAL_STATE, action) =>{
                 currentUser: action.payload
             };
 
+        case userActionTypes.UPDATE_TICKET_LIST:
+            return {
+                ...state,
+                ticketList: action.payload
+            }
+
         default:
             return state;
     }
