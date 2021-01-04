@@ -23,12 +23,14 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>{
   if(!snapshot.exists){
     const { email } = userAuth;
     const createdAt = new Date();
+    const ticketList = [];
 
     try {
       await userRef.set({
         ...additionalData,
         email,
-        createdAt
+        createdAt,
+        ticketList
       });
     } catch (error) {
       console.log('We have an error creating the user: ', error.message);
@@ -37,6 +39,18 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>{
   }
 
   return userRef;
+}
+
+export const updateUserProfileDocument = async (userAuth, field, newValue) => {
+
+  console.log(userAuth);
+  const userRef = firestore.doc(`users/${userAuth.id}`);
+
+  try {
+    await userRef.update({ [field]: newValue });
+  } catch (error) {
+    console.error("Error updating doc", error);
+  }
 }
 
 export const auth = firebase.auth();
