@@ -27,3 +27,15 @@ $danger: #fea63a;
     background-color: $secondary !important;
     cursor: pointer;
 }
+
+.color-available{
+    background-color: $light;
+}
+
+.color-occupied{
+    background-color: $secondary;
+}
+
+.color-user-space{
+    background-color: $info;
+}
