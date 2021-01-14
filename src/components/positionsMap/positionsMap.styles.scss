@@ -28,6 +28,11 @@ $danger: #fea63a;
     cursor: pointer;
 }
 
+.not-allowed{
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
 .color-available{
     background-color: $light;
 }
