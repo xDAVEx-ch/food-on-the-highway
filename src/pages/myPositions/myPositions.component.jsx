@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 
 import Button from 'react-bootstrap/Button';
 
-import PositionsMap from '../../components/positionsMap/positionsMap.component';
+import PositionsMap from '../../components/positionsMap/positionsMap.container';
 
 const MyPositions = () => (
     <Container

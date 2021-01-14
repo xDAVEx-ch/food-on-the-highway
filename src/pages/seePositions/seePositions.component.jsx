@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import PositionsMap from '../../components/positionsMap/positionsMap.component';
+import PositionsMap from '../../components/positionsMap/positionsMap.container';
 import ColorPanel from '../../components/colorPanel/colorPanel.component';
 
 const SeePositions = () => (

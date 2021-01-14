@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 
 import Button from 'react-bootstrap/Button'
 
-import PositionsMap from '../../components/positionsMap/positionsMap.component';
+import PositionsMap from '../../components/positionsMap/positionsMap.container';
 import ColorPanel from '../../components/colorPanel/colorPanel.component';
 
 const SelectPositions = () =>(
