@@ -43,8 +43,9 @@ class SignUpPage extends React.Component {
 
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
+            const list = [];
 
-            await createUserProfileDocument(user, { userName, type });
+            await createUserProfileDocument(user, { userName, type, list });
 
             //Clear form inputs
             this.setState({
@@ -119,34 +120,6 @@ class SignUpPage extends React.Component {
         }
 
         return errors;
-
-        /*if(this.state.userName === ''){
-            e.stopPropagation();
-            this.setState({ errorCodeUserName: 'blank-space', validated: true });
-        } else {
-            this.setState({ errorCodeUserName: '', validated: false });
-        }
-
-        if(this.state.email === ''){
-            e.stopPropagation();
-            this.setState({ errorCodeEmail: 'blank-space', validated: true });
-        } else {
-            this.setState({ errorCodeEmail: '', validated: false });
-        }
-
-        if (this.state.password !== this.state.confirmPassword) {
-            e.stopPropagation();
-            this.setState({ confirmPassword: '', errorCodeConfirmPass: 'password-mismatch', validated: true });
-        } else {
-            this.setState({ errorCodeConfirmPass: '', validated: false });
-        }
-
-        if(this.state.password === '' ){
-            e.stopPropagation();
-            this.setState({ errorCodePassword: 'blank-space', validated: true });
-        } else {
-            this.setState({ errorCodePassword: '', validated: false });
-        }*/
     }
 
     handleChange = (event) => {
