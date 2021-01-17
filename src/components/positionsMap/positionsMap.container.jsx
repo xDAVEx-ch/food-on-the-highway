@@ -6,10 +6,12 @@ import { compose } from 'redux';
 import PositionsMap from './positionsMap.component';
 
 import { setPositionsState } from '../../redux/positions/positions.actions';
+import { updatePositionsList } from '../../redux/user/user.actions';
 
-const PositionsMapContainer = ({ positions, setPositionsState, location }) => {
+const PositionsMapContainer = ({ positions, setPositionsState, updatePositionsList, positionsList, location }) => {
 
     const pathName = location.pathname;
+    console.log(positionsList);
 
     const handlerClick = (e) => {
         if(pathName !== '/main/select-positions') return;
@@ -25,6 +27,9 @@ const PositionsMapContainer = ({ positions, setPositionsState, location }) => {
 
                 const newPlaceState = 'available';
                 setPositionsState({ [position]: {state: newPlaceState, selectedByUser: !selectedByUser} });
+                updatePositionsList([...positionsList].filter((userPosition) =>{
+                    return userPosition !== position
+                }));
 
                 /* User clicked on space selected by itself. selectedByUser changes to false*/
             } else {
@@ -32,6 +37,8 @@ const PositionsMapContainer = ({ positions, setPositionsState, location }) => {
 
                 const newPlaceState = 'user-space';
                 setPositionsState({ [position]: {state: newPlaceState, selectedByUser: !selectedByUser} });
+                console.log([...positionsList])
+                updatePositionsList([...positionsList, position]);
 
                 /*User clicked on space available. selectedByUser changes to true */
             }
@@ -56,12 +63,14 @@ const PositionsMapContainer = ({ positions, setPositionsState, location }) => {
     return <PositionsMap getColorState={getColorState} handlerClick={handlerClick} />;
 };
 
-const mapStateToProps = ({ positions }) => ({
-    positions
+const mapStateToProps = ({ positions, user: {positionsList} }) => ({
+    positions,
+    positionsList
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setPositionsState: (newPositionState) => dispatch(setPositionsState(newPositionState))
+    setPositionsState: (newPositionState) => dispatch(setPositionsState(newPositionState)),
+    updatePositionsList: (newPosition) => dispatch(updatePositionsList(newPosition))
 });
 
 const enhancer = compose(
