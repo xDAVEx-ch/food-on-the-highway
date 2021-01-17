@@ -1,7 +1,8 @@
 import userActionTypes from './user.types';
 
 const INITIAL_STATE = {
-    currentUser: null
+    currentUser: null,
+    positionsList: []
 };
 
 const userReducer = (state = INITIAL_STATE, action) =>{
@@ -16,6 +17,12 @@ const userReducer = (state = INITIAL_STATE, action) =>{
             return {
                 ...state,
                 ticketList: action.payload
+            };
+
+        case userActionTypes.UPDATE_POSITIONS_LIST:
+            return {
+                ...state,
+                positionsList: action.payload
             }
 
         default:
