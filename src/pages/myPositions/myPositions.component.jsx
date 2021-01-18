@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -11,7 +12,13 @@ import UserPositionsList from '../../components/userPositionsList/userPositionsL
 
 const MyPositions = ({ positionsList }) => {
 
+    let history = useHistory();
     const onePosition = positionsList[0];
+
+    const handleClick = () =>{
+        history.push('/main/select-positions');
+    };
+
     return (
         <>
             {
@@ -24,7 +31,7 @@ const MyPositions = ({ positionsList }) => {
                         >
                             <h3 className='mb-4 text-center'>See your foodtrucks' positions</h3>
                             <UserPositionsList />
-                            <Button variant='primary' className='mt-4'>New locations</Button>
+                            <Button variant='primary' className='mt-4' onClick={handleClick}>New locations</Button>
                         </Container>
                     )
                     : (
