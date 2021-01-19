@@ -10,7 +10,7 @@ const ProtectedRoute = ({
     console.log(user);
     return (
         <Route {...otherProps} render={(props) => {
-            if (true) {
+            if (user) {
                 return <WrappedComponent {...props}/>
             } else {
                 return <Redirect to={{ pathname: '/', state: { from: props.location } }} />

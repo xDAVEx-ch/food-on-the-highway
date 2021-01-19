@@ -11,6 +11,8 @@ import ticketData from '../../tickets.data';
 import { updateTicketList } from '../../redux/user/user.actions';
 import { updateUserProfileDocument } from '../../firebase/firebase.utils';
 
+import './userTicket.styles.scss';
+
 const UserTicket = ({ user, ticketType, updateTicketList }) => {
 
     const [ modalVisibility, setModalVisibility ] = useState(false);
@@ -40,11 +42,10 @@ const UserTicket = ({ user, ticketType, updateTicketList }) => {
             <Row className='mb-3'>
                 <Col>
                     <h3 className='mb-4'>My ticket</h3>
-                    <div style={{ width: '400px' }}>
+                    <div className='ticket-container'>
                         <img
                             src={ticketData[ticketType].ticketUrl}
                             alt={ticketData[ticketType].altText}
-                            style={{ width: '100%' }}
                         />
                     </div>
                 </Col>
