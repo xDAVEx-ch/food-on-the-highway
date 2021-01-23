@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import { Redirect } from 'react-router-dom';
 
-import { auth } from '../../firebase/firebase.utils';
+import { logOutStart } from '../../redux/user/user.actions';
 
 import ListGroup from 'react-bootstrap/ListGroup';
 
-const ExitButton = () => {
+const ExitButton = ({ logOutStart }) => {
 
     const [loggedOut, setLoggedOut] = useState(false);
 
     const logOut = () => {
-        auth.signOut();
+        console.log('antes');
+        logOutStart();
+        console.log('despues');
         setLoggedOut(true);
     };
 
@@ -31,4 +34,8 @@ const ExitButton = () => {
     );
 };
 
-export default ExitButton;
+const mapDispatchToProps = (dispatch) =>({
+    logOutStart: () => dispatch(logOutStart())
+});
+
+export default connect(null, mapDispatchToProps)(ExitButton);

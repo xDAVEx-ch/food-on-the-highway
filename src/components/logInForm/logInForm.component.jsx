@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import { auth } from '../../firebase/firebase.utils';
+import { connect } from 'react-redux';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -11,7 +12,9 @@ import Form from 'react-bootstrap/Form';
 import FormInput from '../../components/formInput/formInput.component';
 import RedirectButton from '../../components/enterButton/enterButton.component';
 
-export default class LogInForm extends Component {
+import { logInStart } from '../../redux/user/user.actions';
+
+class LogInForm extends Component {
 
     constructor() {
         super();
@@ -37,7 +40,10 @@ export default class LogInForm extends Component {
 
         try {
             const { email, password } = this.state;
-            await auth.signInWithEmailAndPassword(email, password);
+            const { logInStart } = this.props;
+
+            logInStart({email, password});
+            //await auth.signInWithEmailAndPassword(email, password);
 
             this.setState({ validated: false });
             this.setState({ email: '', password: '' });
@@ -135,3 +141,9 @@ export default class LogInForm extends Component {
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) =>({
+    logInStart: (email, password) => dispatch(logInStart(email, password))
+});
+
+export default connect(null, mapDispatchToProps)(LogInForm)
