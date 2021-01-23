@@ -42,7 +42,7 @@ const Header = ({ location, user, toggleSidebar }) => {
                 <div className='ml-auto d-flex flex-row'>
                     {
                         user
-                            ? `Welcome ${user.currentUser.userName}!!`
+                            ? `Welcome ${user.userName}!!`
                             : (
                                 <>
                                     <Link className='nav-link' to='/login'>Log in</Link>

@@ -31,7 +31,7 @@ const BuyTicket = ({ user, updateTicketList }) => {
     useEffect(() =>{
         if(agreeUpdate){
             updateTicketList(ticketType);
-            updateUserProfileDocument(user.currentUser, 'ticketList', ticketType);
+            updateUserProfileDocument(user, 'ticketList', ticketType);
             setAgreeUpdate(false);
         }
     },[agreeUpdate, ticketType, updateTicketList, user]);

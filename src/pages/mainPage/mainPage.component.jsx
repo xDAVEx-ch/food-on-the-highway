@@ -31,7 +31,7 @@ const MainPage = ({ match, user, hidden, resetToggleHidden }) => {
         <div className={`d-flex ${hidden ? '' : 'toggled'}`} id='wrapper'>
             <Sidebar />
             {
-                user.currentUser.type === 'participant'
+                user.type === 'participant'
                 ?(
                     <>
                         <Route exact path={`${match.path}`} component={MyPositions} />

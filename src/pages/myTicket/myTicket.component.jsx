@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 import UserTicket from '../../components/userTicket/userTicket.component';
 import EmptyMessage from '../../components/emptyMessage/emptyMessage.component';
@@ -12,7 +10,7 @@ import './myTicket.styles.scss';
 
 const MyTicket = ({ user }) => {
 
-    const userTicket = user.currentUser.ticketList[0];
+    const userTicket = user.ticketList[0];
 
     return (
         <>
@@ -26,7 +24,7 @@ const MyTicket = ({ user }) => {
                         </Container>
                     )
                     : (
-                        <EmptyMessage message='Go. Buy one. Enjoy the pleasure of Food on The Highway' />
+                        <EmptyMessage message='Go. Buy a ticket. Enjoy the pleasure of Food on The Highway' />
                     )
             }
 
