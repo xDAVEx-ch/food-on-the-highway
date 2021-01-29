@@ -5,6 +5,11 @@ export const setCurrentUser = (user) =>({
     payload: user
 });
 
+export const setUserError = (error) =>({
+    type: userActionTypes.SET_USER_ERROR,
+    payload: error
+});
+
 export const updateTicketList = (newTicket) =>({
     type: userActionTypes.UPDATE_TICKET_LIST,
     payload: newTicket
@@ -41,4 +46,19 @@ export const logOutSuccess = () =>({
 export const logOutFailure = (error) =>({
     type: userActionTypes.LOG_OUT_FAILURE,
     error: error
+});
+
+export const signUpStart = (userInfo) =>({
+    type: userActionTypes.SIGN_UP_START,
+    payload: userInfo
+});
+
+export const signUpSuccess = (user) => ({
+    type: userActionTypes.SIGN_UP_SUCCESS,
+    payload: user
+});
+
+export const signUpFailure = (error) =>({
+    type: userActionTypes.SIGN_UP_FAILURE,
+    payload: error
 });
