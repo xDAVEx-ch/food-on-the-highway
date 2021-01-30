@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { connect } from 'react-redux';
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils.js';
 
 import Container from 'react-bootstrap/Container';
@@ -10,6 +10,8 @@ import Form from 'react-bootstrap/Form';
 
 import FormInput from '../formInput/formInput.component';
 import EnterButton from '../enterButton/enterButton.component';
+
+import { signUpStart } from '../../redux/user/user.actions';
 
 class SignUpPage extends React.Component {
 
@@ -39,13 +41,15 @@ class SignUpPage extends React.Component {
             return;
         }
 
-        const { userName, email, password, type } = this.state;
+        const { email, password, userName, type } = this.state;
+        const {signUpStart} = this.props;
+        signUpStart({email, password, userName, type});
 
-        try {
+        /*try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
             const list = [];
 
-            await createUserProfileDocument(user, { userName, type, list });
+            await createUserProfileDocument(user, { userName, type, list });*/
 
             //Clear form inputs
             this.setState({
@@ -62,7 +66,7 @@ class SignUpPage extends React.Component {
                 validated: false
             });
 
-        } catch (error) {
+        /*} catch (error) {
 
             if( error.code === 'auth/weak-password' ){
                 this.setState({
@@ -75,7 +79,7 @@ class SignUpPage extends React.Component {
                     firebaseErrorMsg: error.message
                 });
             }
-        }
+        }*/
     }
 
     handleValidation = async (e) => {
@@ -228,4 +232,7 @@ class SignUpPage extends React.Component {
     }
 }
 
-export default SignUpPage;
+const mapDispatchToProps = (dispatch) =>({
+    signUpStart: (emailAndPass) => dispatch(signUpStart(emailAndPass))
+});
+export default connect(null, mapDispatchToProps)(SignUpPage);

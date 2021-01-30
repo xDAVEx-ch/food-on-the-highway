@@ -8,9 +8,9 @@ import EmptyMessage from '../../components/emptyMessage/emptyMessage.component';
 
 import './myTicket.styles.scss';
 
-const MyTicket = ({ user }) => {
+const MyTicket = ({ user: {list: ticketList} }) => {
 
-    const userTicket = user.ticketList[0];
+    const userTicket = ticketList[0];
 
     return (
         <>

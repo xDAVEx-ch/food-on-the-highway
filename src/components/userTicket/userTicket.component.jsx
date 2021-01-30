@@ -17,6 +17,7 @@ const UserTicket = ({ user, ticketType, updateTicketList }) => {
 
     const [ modalVisibility, setModalVisibility ] = useState(false);
     const [ agreeUpdate, setAgreeUpdate ] = useState(false);
+    console.log({...user, ticketList: []});
 
     const handleCancel = () => setModalVisibility(false);
     const handleAccept = () => {
@@ -31,8 +32,8 @@ const UserTicket = ({ user, ticketType, updateTicketList }) => {
 
     useEffect(() =>{
         if(agreeUpdate){
-            updateTicketList([]);
-            updateUserProfileDocument(user, 'ticketList', []);
+            updateTicketList({...user, list: []});
+            updateUserProfileDocument(user, 'list', []);
             setAgreeUpdate(false);
         }
     },[agreeUpdate, ticketType, updateTicketList, user]);
