@@ -3,7 +3,7 @@ import userActionTypes from './user.types';
 const INITIAL_STATE = {
     currentUser: null,
     positionsList: [],
-    error: null
+    error: 'no-error'
 };
 
 const userReducer = (state = INITIAL_STATE, action) =>{
@@ -14,7 +14,7 @@ const userReducer = (state = INITIAL_STATE, action) =>{
             return {
                 ...state,
                 currentUser: action.payload,
-                error: null
+                error: 'no-error'
             };
 
         case userActionTypes.LOG_OUT_SUCCESS:
@@ -22,7 +22,7 @@ const userReducer = (state = INITIAL_STATE, action) =>{
                 ...state,
                 currentUser: null,
                 positionsList: [],
-                error: null
+                error: 'no-error'
             }
 
         case userActionTypes.LOG_IN_FAILURE:

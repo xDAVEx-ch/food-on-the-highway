@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import { auth } from '../../firebase/firebase.utils';
 import { connect } from 'react-redux';
 
 import Container from 'react-bootstrap/Container';
@@ -22,11 +21,25 @@ class LogInForm extends Component {
         this.state = {
             email: '',
             password: '',
-            errorCodeEmail: '',
-            errorCodePassword: '',
-            firebaseErrorMsg: '',
+            errorCodeEmail: 'no-error',
+            errorCodePassword: 'no-error',
             validated: false
         }
+    }
+
+    componentDidUpdate(prevProps) {
+
+        const { errorCodeFirebase } = this.props;
+        console.log(errorCodeFirebase);
+
+        if(prevProps !== this.props){
+            if(errorCodeFirebase.includes('password')){
+                this.setState({ errorCodePassword: errorCodeFirebase });
+            } else {
+                this.setState({ errorCodeEmail: errorCodeFirebase });
+            }
+        }
+        
     }
 
     handleSubmit = async (e) => {
@@ -38,29 +51,14 @@ class LogInForm extends Component {
             return;
         }
 
-        try {
-            const { email, password } = this.state;
-            const { logInStart } = this.props;
+        const { email, password } = this.state;
+        const { logInStart } = this.props;
 
-            logInStart({email, password});
-            //await auth.signInWithEmailAndPassword(email, password);
+        console.log('before');
+        logInStart({email, password});
+        console.log('after');
 
-            this.setState({ validated: false });
-            this.setState({ email: '', password: '' });
-        } catch (error) {
-            if (error.code === 'auth/wrong-password') {
-                this.setState({
-                    errorCodePassword: error.code,
-                    firebaseErrorMsg: error.message
-                });
-            } else {
-                this.setState({
-                    errorCodeEmail: error.code,
-                    firebaseErrorMsg: error.message
-                });
-            }
-        }
-
+        this.setState({ validated: false });
     }
 
     handleValidation = () =>{
@@ -70,7 +68,7 @@ class LogInForm extends Component {
             this.setState({ errorCodeEmail: 'blank-space' });
             errors.email = true
         } else {
-            this.setState({ errorCodeEmail: '' });
+            this.setState({ errorCodeEmail: 'no-error' });
             errors.email = false;
         }
 
@@ -78,7 +76,7 @@ class LogInForm extends Component {
             this.setState({ errorCodePassword: 'blank-space' });
             errors.password = true
         } else {
-            this.setState({ errorCodePassword: '' });
+            this.setState({ errorCodePassword: 'no-error' });
             errors.password = false;
         }
 
@@ -117,7 +115,6 @@ class LogInForm extends Component {
                                     value={this.state.email}
                                     onChange={this.handleChange}
                                     errorCodeMsg={this.state.errorCodeEmail}
-                                    firebaseErrorMsg={this.state.firebaseErrorMsg}
                                 />
 
                                 <FormInput
@@ -129,7 +126,6 @@ class LogInForm extends Component {
                                     value={this.state.password}
                                     onChange={this.handleChange}
                                     errorCodeMsg={this.state.errorCodePassword}
-                                    firebaseErrorMsg={this.state.firebaseErrorMsg}
                                 />
 
                                 <RedirectButton text={'Log In'} validation={this.state.validated} />
@@ -146,4 +142,8 @@ const mapDispatchToProps = (dispatch) =>({
     logInStart: (email, password) => dispatch(logInStart(email, password))
 });
 
-export default connect(null, mapDispatchToProps)(LogInForm)
+const mapStateToProps = ({user: {error}}) =>({
+    errorCodeFirebase: error
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogInForm)

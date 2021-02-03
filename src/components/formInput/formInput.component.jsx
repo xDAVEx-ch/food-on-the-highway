@@ -2,48 +2,42 @@ import React from 'react';
 
 import Form from 'react-bootstrap/Form';
 
+import authErrors from './authErrorsCodes';
+
 const FormInput = (props) => {
 
-    let errorMsg = '';
-    let isValidationError = false;
+    let error = null;
 
-    const { 
-        errorCodeMsg,
-        firebaseErrorMsg,
+    const {
         label,
+        errorCodeMsg,
         handleChange,
         extraInfo,
-        ...otherProps 
+        ...otherProps
     } = props;
 
-    switch(errorCodeMsg){
-        case 'password-mismatch':
-            errorMsg = "Passwords don't match";
-            isValidationError = true;
-            break;
-        case 'blank-space':
-            errorMsg = 'Please, fill this space';
-            isValidationError = true;
-            break;
-        case '':
-            isValidationError = false;
-            break;
-        default:
-            errorMsg = firebaseErrorMsg;
-            isValidationError = true;
-            
-    }
+    /*if(errorCodeMsg === 'no-error'){
+        if(errorCodeFirebase){ // null if no errors
+            error = authErrors[errorCodeFirebase];
+        } else {
+            error = authErrors[errorCodeMsg];
+        }
+    } else {
+        error = authErrors[errorCodeMsg];
+    }*/
 
-    console.log(errorMsg);
+    error = authErrors[errorCodeMsg];
+
+    console.log(error);
     return (
         <Form.Group controlId="formGroup">
             <Form.Label>
                 {label}
                 <small className='text-info pl-2'>{extraInfo}</small>
             </Form.Label>
-            <Form.Control onChange={handleChange} {...otherProps} isInvalid={isValidationError} />
+            <Form.Control onChange={handleChange} {...otherProps} isInvalid={error.isValidationError} />
                 <Form.Control.Feedback type="invalid">
-                    {errorMsg}
+                    {error.msg}
                 </Form.Control.Feedback>
         </Form.Group>
     )

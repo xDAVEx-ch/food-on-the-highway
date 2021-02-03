@@ -70,7 +70,7 @@ export function* logInWithEmail({ payload: {email, password} }){
         yield auth.signInWithEmailAndPassword(email, password);
         yield call(watchForFirebaseAuth);
     } catch (error) {
-        yield put(logInFailure(error));
+        yield put(logInFailure(error.code));
     }
 }
 
