@@ -24,13 +24,27 @@ class SignUpPage extends React.Component {
             password: '',
             confirmPassword: '',
             type: 'consumer',
-            errorCodeUserName: '',
-            errorCodeEmail: '',
-            errorCodePassword: '',
-            errorCodeConfirmPass: '',
-            firebaseErrorMsg: '',
+            errorCodeUserName: 'no-error',
+            errorCodeEmail: 'no-error',
+            errorCodePassword: 'no-error',
+            errorCodeConfirmPass: 'no-error',
             validated: false
         };
+    }
+
+    componentDidUpdate(prevProps) {
+
+        const { errorCodeFirebase } = this.props;
+        console.log(errorCodeFirebase);
+
+        if(prevProps !== this.props){
+            if(errorCodeFirebase.includes('password')){
+                this.setState({ errorCodePassword: errorCodeFirebase });
+            } else {
+                this.setState({ errorCodeEmail: errorCodeFirebase });
+            }
+        }
+        
     }
 
     handleSubmit = async (e) => {
@@ -51,20 +65,7 @@ class SignUpPage extends React.Component {
 
             await createUserProfileDocument(user, { userName, type, list });*/
 
-            //Clear form inputs
-            this.setState({
-                userName: '',
-                email: '',
-                password: '',
-                confirmPassword: '',
-                type: 'consumer',
-                errorCodeUserName: '',
-                errorCodeEmail: '',
-                errorCodePassword: '',
-                errorCodeConfirmPass: '',
-                firebaseErrorMsg: '',
-                validated: false
-            });
+            this.setState({validated: false});
 
         /*} catch (error) {
 
@@ -90,7 +91,7 @@ class SignUpPage extends React.Component {
             this.setState({ errorCodeUserName: 'blank-space' });
             errors.userName = true;
         } else {
-            this.setState({ errorCodeUserName: '' });
+            this.setState({ errorCodeUserName: 'no-error' });
             errors.userName = false;
         }
 
@@ -98,7 +99,7 @@ class SignUpPage extends React.Component {
             this.setState({ errorCodeEmail: 'blank-space' });
             errors.email = true;
         } else {
-            this.setState({ errorCodeEmail: '' });
+            this.setState({ errorCodeEmail: 'no-error' });
             errors.email = false;
         }
 
@@ -106,7 +107,7 @@ class SignUpPage extends React.Component {
             this.setState({ errorCodePassword: 'blank-space' });
             errors.password = true;
         } else {
-            this.setState({ errorCodePassword: '' });
+            this.setState({ errorCodePassword: 'no-error' });
             errors.password = false;
         }
 
@@ -119,7 +120,7 @@ class SignUpPage extends React.Component {
             this.setState({ errorCodeConfirmPass: 'password-mismatch'});
             errors.confirmPassword = true;
         } else {
-            this.setState({ errorCodeConfirmPass: '' });
+            this.setState({ errorCodeConfirmPass: 'no-error' });
             errors.confirmPassword = false;
         }
 
@@ -180,7 +181,6 @@ class SignUpPage extends React.Component {
                                     value={this.state.email}
                                     onChange={this.handleChange}
                                     errorCodeMsg={this.state.errorCodeEmail}
-                                    firebaseErrorMsg={this.state.firebaseErrorMsg}
                                 />
 
                                 <FormInput
@@ -193,7 +193,6 @@ class SignUpPage extends React.Component {
                                     value={this.state.password}
                                     onChange={this.handleChange}
                                     errorCodeMsg={this.state.errorCodePassword}
-                                    firebaseErrorMsg={this.state.firebaseErrorMsg}
                                 />
 
                                 <FormInput
@@ -213,7 +212,7 @@ class SignUpPage extends React.Component {
                                     name='type'
                                     value={this.capitalizeFirstLetter()}
                                     readOnly
-                                    errorCodeMsg={''}
+                                    errorCodeMsg={'no-error'}
                                 />
                                 <Form.Check
                                     type='switch'
@@ -235,4 +234,9 @@ class SignUpPage extends React.Component {
 const mapDispatchToProps = (dispatch) =>({
     signUpStart: (emailAndPass) => dispatch(signUpStart(emailAndPass))
 });
-export default connect(null, mapDispatchToProps)(SignUpPage);
+
+const mapStateToProps = ({ user: {error} }) =>({
+    errorCodeFirebase: error
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

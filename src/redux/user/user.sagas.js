@@ -93,7 +93,7 @@ export function* signUp({ payload: {email, password, ...userNameAndType} }){
         yield call(watchForFirebaseAuth, {...userNameAndType, list});
 
     } catch (error){
-        yield put(signUpFailure(error));
+        yield put(signUpFailure(error.code));
     }
 }
 
