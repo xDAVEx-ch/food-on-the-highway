@@ -4,13 +4,11 @@ import { eventChannel } from 'redux-saga';
 import userActionTypes from './user.types';
 import { 
     logInFailure,
-    logInSuccess,
     logOutFailure,
     logOutSuccess ,
     setCurrentUser,
     setUserError,
     signUpFailure,
-    signUpSuccess
 } from './user.actions';
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
@@ -76,7 +74,6 @@ export function* logInWithEmail({ payload: {email, password} }){
 
 export function* logOut(){
     try {
-        console.log('saga');
         yield auth.signOut();
         yield put(logOutSuccess());
 

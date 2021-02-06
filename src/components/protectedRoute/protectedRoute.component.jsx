@@ -7,7 +7,7 @@ const ProtectedRoute = ({
     currentUser: user,
     ...otherProps
 }) => {
-    console.log(user);
+
     return (
         <Route {...otherProps} render={(props) => {
             if (user) {

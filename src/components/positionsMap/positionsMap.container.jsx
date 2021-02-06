@@ -11,7 +11,6 @@ import { updatePositionsList } from '../../redux/user/user.actions';
 const PositionsMapContainer = ({ positions, setPositionsState, updatePositionsList, positionsList, location }) => {
 
     const pathName = location.pathname;
-    console.log(positionsList);
 
     const handlerClick = (e) => {
         if(pathName !== '/main/select-positions') return;
@@ -37,7 +36,6 @@ const PositionsMapContainer = ({ positions, setPositionsState, updatePositionsLi
 
                 const newPlaceState = 'user-space';
                 setPositionsState({ [position]: {state: newPlaceState, selectedByUser: !selectedByUser} });
-                console.log([...positionsList])
                 updatePositionsList([...positionsList, position]);
 
                 /*User clicked on space available. selectedByUser changes to true */

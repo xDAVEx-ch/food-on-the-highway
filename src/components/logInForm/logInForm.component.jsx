@@ -30,7 +30,6 @@ class LogInForm extends Component {
     componentDidUpdate(prevProps) {
 
         const { errorCodeFirebase } = this.props;
-        console.log(errorCodeFirebase);
 
         if(prevProps !== this.props){
             if(errorCodeFirebase.includes('password')){
@@ -54,9 +53,7 @@ class LogInForm extends Component {
         const { email, password } = this.state;
         const { logInStart } = this.props;
 
-        console.log('before');
         logInStart({email, password});
-        console.log('after');
 
         this.setState({ validated: false });
     }

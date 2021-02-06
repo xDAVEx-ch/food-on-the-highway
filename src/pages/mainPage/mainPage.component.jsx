@@ -20,10 +20,8 @@ const MainPage = ({ match, user, hidden, resetToggleHidden }) => {
     const dimensions = useMediaQuery();
 
     useEffect(() =>{
-        console.log('useEffect');
         if(dimensions.width > 768){
             resetToggleHidden(true);
-            console.log('after reset');
         }
     }, [dimensions, resetToggleHidden]);
 

@@ -16,19 +16,8 @@ const FormInput = (props) => {
         ...otherProps
     } = props;
 
-    /*if(errorCodeMsg === 'no-error'){
-        if(errorCodeFirebase){ // null if no errors
-            error = authErrors[errorCodeFirebase];
-        } else {
-            error = authErrors[errorCodeMsg];
-        }
-    } else {
-        error = authErrors[errorCodeMsg];
-    }*/
-
     error = authErrors[errorCodeMsg];
 
-    console.log(error);
     return (
         <Form.Group controlId="formGroup">
             <Form.Label>

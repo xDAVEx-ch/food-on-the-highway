@@ -12,9 +12,7 @@ const ExitButton = ({ logOutStart }) => {
     const [loggedOut, setLoggedOut] = useState(false);
 
     const logOut = () => {
-        console.log('antes');
         logOutStart();
-        console.log('despues');
         setLoggedOut(true);
     };
 

@@ -17,7 +17,6 @@ const UserTicket = ({ user, ticketType, updateTicketList }) => {
 
     const [ modalVisibility, setModalVisibility ] = useState(false);
     const [ agreeUpdate, setAgreeUpdate ] = useState(false);
-    console.log({...user, ticketList: []});
 
     const handleCancel = () => setModalVisibility(false);
     const handleAccept = () => {

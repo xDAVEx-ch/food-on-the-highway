@@ -6,8 +6,6 @@ import Modal from 'react-bootstrap/Modal';
 const WarningModal = ({ title, body, show, ...buttonFunc }) => {
 
     const {acceptFunc: accept, cancelFunc: cancel} = buttonFunc;
-    console.log(cancel);
-    console.log(buttonFunc);
 
     return (
         <Modal

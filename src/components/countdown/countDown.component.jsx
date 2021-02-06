@@ -12,7 +12,6 @@ const CountDown = () => {
 
     const dimensions = useMediaQuery();
     const {eventDateMillisec} = useContext(CountDownContext);
-    console.log(eventDateMillisec);
 
     const calculateTimeLeft = () => {
         let remainingTime = eventDateMillisec - +new Date();

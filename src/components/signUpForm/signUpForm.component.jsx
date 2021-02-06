@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils.js';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -35,7 +34,6 @@ class SignUpPage extends React.Component {
     componentDidUpdate(prevProps) {
 
         const { errorCodeFirebase } = this.props;
-        console.log(errorCodeFirebase);
 
         if(prevProps !== this.props){
             if(errorCodeFirebase.includes('password')){
@@ -59,28 +57,7 @@ class SignUpPage extends React.Component {
         const {signUpStart} = this.props;
         signUpStart({email, password, userName, type});
 
-        /*try {
-            const { user } = await auth.createUserWithEmailAndPassword(email, password);
-            const list = [];
-
-            await createUserProfileDocument(user, { userName, type, list });*/
-
-            this.setState({validated: false});
-
-        /*} catch (error) {
-
-            if( error.code === 'auth/weak-password' ){
-                this.setState({
-                    errorCodePassword: error.code,
-                    firebaseErrorMsg: error.message
-                });
-            } else {
-                this.setState({
-                    errorCodeEmail: error.code,
-                    firebaseErrorMsg: error.message
-                });
-            }
-        }*/
+        this.setState({validated: false});
     }
 
     handleValidation = async (e) => {

@@ -41,7 +41,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>{
 
 export const updateUserProfileDocument = async (userAuth, field, newValue) => {
 
-  console.log(userAuth);
   const userRef = firestore.doc(`users/${userAuth.id}`);
 
   try {
