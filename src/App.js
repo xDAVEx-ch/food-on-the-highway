@@ -1,11 +1,8 @@
 import React from 'react';
 
 import { Route } from 'react-router-dom';
-import { connect } from 'react-redux';
 
-import { setCurrentUser } from './redux/user/user.actions';
-
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import CountDownContext from './contexts/countDown/countDown.context';
 
 import InitialPage from './pages/initialPage/initialPage.component';
 import SignUpPage from './pages/signUp/signUpPage.component';
@@ -17,28 +14,20 @@ import ProtectedRoute from './components/protectedRoute/protectedRoute.component
 
 class App extends React.Component {
 
-  unsubscribe = null;
+  constructor(){
+    super();
+
+    this.state = {
+      defaultTime: -5
+    };
+  }
 
   componentDidMount(){
 
-    const { setCurrentUser } = this.props;
+    const date = new Date();
+    date.setDate(date.getDate() + 10);
 
-    /*this.unsubscribe = auth.onAuthStateChanged( async userAuth => {
-      if(userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-
-        userRef.onSnapshot  ( (snapshot) =>{
-          setCurrentUser({
-            currentUser: {
-              id: snapshot.id,
-              ...snapshot.data()
-            }
-          });
-        })
-      } else {
-        setCurrentUser(userAuth);
-      }
-    });*/
+    this.setState({ defaultTime: date.getTime() });
   }
 
   componentWillUnmount(){
@@ -49,7 +38,12 @@ class App extends React.Component {
     return (
       <>
         <Header />
-        <Route exact path='/' component={InitialPage}></Route>
+
+        <CountDownContext.Provider value={{
+          eventDateMillisec: this.state.defaultTime
+        }}>
+          <Route exact path='/' component={InitialPage}></Route>
+        </CountDownContext.Provider>
         <Route path='/signup' component={SignUpPage}></Route>
         <Route path='/login' component={LogInPage}></Route>
         <ProtectedRoute path='/main' currentUser={this.props.currentUser} component={MainPage}></ProtectedRoute>
@@ -58,12 +52,4 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
-});
-
-const mapDispatchToProps = (dispatch) =>({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
