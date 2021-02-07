@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
 import { Route, Redirect } from "react-router-dom";
 
 const ProtectedRoute = ({
     component: WrappedComponent,
-    currentUser: user,
+    user,
     ...otherProps
 }) => {
 
@@ -20,4 +21,8 @@ const ProtectedRoute = ({
     );
 };
 
-export default ProtectedRoute;
+const mapStateToProps = ({ user: {currentUser}}) =>({
+    user: currentUser
+});
+
+export default connect(mapStateToProps)(ProtectedRoute);

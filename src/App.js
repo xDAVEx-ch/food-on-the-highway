@@ -30,10 +30,6 @@ class App extends React.Component {
     this.setState({ defaultTime: date.getTime() });
   }
 
-  componentWillUnmount(){
-    //this.unsubscribe();
-  }
-
   render() {
     return (
       <>
@@ -46,7 +42,7 @@ class App extends React.Component {
         </CountDownContext.Provider>
         <Route path='/signup' component={SignUpPage}></Route>
         <Route path='/login' component={LogInPage}></Route>
-        <ProtectedRoute path='/main' currentUser={this.props.currentUser} component={MainPage}></ProtectedRoute>
+        <ProtectedRoute path='/main' component={MainPage}></ProtectedRoute>
       </>
     );
   }

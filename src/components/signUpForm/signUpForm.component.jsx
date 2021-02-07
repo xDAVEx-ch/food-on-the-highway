@@ -105,12 +105,14 @@ class SignUpPage extends React.Component {
     }
 
     handleChange = (event) => {
-        const { name, value, checked } = event.target;
+        const { name, value, type, checked } = event.target;
 
-        if (checked) {
-            this.setState({ type: 'participant' });
-        } else {
-            this.setState({ type: 'consumer' });
+        if (type === 'checkbox') {
+            if(checked){
+                this.setState({ type: 'participant' });
+            } else {
+                this.setState({ type: 'consumer' });
+            }
         }
 
         this.setState({ [name]: value });
