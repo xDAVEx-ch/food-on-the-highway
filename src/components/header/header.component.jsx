@@ -10,6 +10,9 @@ import logo from '../../assets/main-logo.png';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+
+import './header.styles.scss';
 
 const Header = ({ location, user, toggleSidebar }) => {
 
@@ -53,6 +56,23 @@ const Header = ({ location, user, toggleSidebar }) => {
                 </div>
 
             </Navbar>
+            {
+                pathName === '/' || pathName === '/login'
+                ? (
+                    <Alert variant={'success'} className='position-absolute w-100'>
+                        <small className='mb-0 d-block'>
+                            Hey...here you have two accounts to start right now
+                        </small>
+                        <small className='display-accounts-info pr-3'>
+                            consumer: loco_J@hotmail.com / @rroz911
+                        </small>
+                        <small className='display-accounts-info'>
+                            participant: dom_AA@gmail.com / dom!ks55
+                        </small>
+                    </Alert>
+                )
+                : ''
+            }
         </header>
     )
 }
